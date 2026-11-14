@@ -1,0 +1,119 @@
+/*
+ * React Bits WebThreads shader surface. Original CSS:
+ * https://github.com/DavidHDev/react-bits/blob/main/src/content/Backgrounds/WebThreads/WebThreads.css
+ * This adaptation provides a layered fallback to the existing MNEMOS Canvas2D.
+ */
+.web-threads-container{position:relative;width:100%;height:100%}
+.web-threads-canvas{position:absolute;inset:0;display:block;width:100%;height:100%}
+.mn-organism-webthreads{
+  position:absolute;z-index:1;left:12px;right:12px;top:34px;bottom:31px;
+  overflow:hidden;opacity:0;transition:opacity .65s ease;pointer-events:none;
+  /* WebGL only appears after the shader actually compiled. */
+}
+.mn-organism[data-shader=ready] .mn-organism-webthreads{opacity:1;pointer-events:auto}
+.mn-organism[data-shader=ready] .mn-organism-canvas{opacity:0}
+.mn-organism-canvas{transition:opacity .55s ease}
+.mn-organism-heading,.mn-organism-footer{z-index:3}
+.mn-organism[data-shader=ready]::after{
+  content:'';position:absolute;z-index:2;top:28px;left:8px;right:8px;
+  height:1px;background:linear-gradient(90deg,transparent,#a8a49a22,transparent);
+  pointer-events:none
+}
+body.mn-home #main > .mn-organism .mn-organism-webthreads{
+  top:39px;bottom:34px;left:16px;right:16px
+}
+body.coordination-mode .mn-organism .mn-organism-webthreads{
+  top:27px;bottom:24px;left:5px;right:5px
+}
+@media(prefers-reduced-motion:reduce){
+  .mn-organism-webthreads,.mn-organism-canvas{transition:none}
+}
+
+/* Cinematic neural stage: use the real WebGL2 threads as the spatial
+   focal point, not a tiny dashboard graph embedded inside another card. */
+body.mn-home #main > .mn-organism{
+  width:min(100%,1100px);
+  height:355px;
+  margin:22px 0 34px;
+  padding:0;
+  border:1px solid #3a3f42;
+  border-top:1px solid #514a40;
+  border-radius:3px;
+  background:#080a0d;
+  box-shadow:0 16px 42px #05060740;
+  overflow:hidden;
+}
+body.mn-home #main > .mn-organism::before{
+  z-index:4;width:2px;opacity:.8
+}
+body.mn-home #main > .mn-organism::after{
+  content:'';z-index:2;
+  position:absolute;inset:0;width:auto;height:auto;top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(90deg,#080a0d 0%,#080a0d55 15%,
+    transparent 33%,transparent 74%,#080a0d99 100%);
+  pointer-events:none
+}
+body.mn-home #main > .mn-organism .mn-organism-webthreads{
+  top:0;bottom:0;left:0;right:0;
+}
+body.mn-home #main > .mn-organism .mn-organism-canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+}
+body.mn-home #main > .mn-organism .mn-organism-heading{
+  position:absolute;z-index:4;
+  top:27px;left:28px;right:28px;
+  font:600 12px/1.6 'Segoe UI Variable','Segoe UI',sans-serif;
+  letter-spacing:.11em;color:#ede9df
+}
+body.mn-home #main > .mn-organism .mn-organism-heading span:first-child{
+  max-width:64%;font-weight:600
+}
+body.mn-home #main > .mn-organism .mn-organism-status{
+  font:600 11px/1.6 Consolas,'Cascadia Mono',monospace;
+  color:#c7ab7e;letter-spacing:.035em
+}
+body.mn-home #main > .mn-organism .mn-organism-footer{
+  position:absolute;z-index:4;bottom:24px;left:28px;right:28px;
+  font:10px/1.6 Consolas,'Cascadia Mono',monospace;
+  color:#adb1ad;letter-spacing:.035em
+}
+body.mn-home #main > .mn-organism .mn-organism-signal{
+  color:#c1b7a2;font-weight:550
+}
+@media(max-height:760px){
+  body.mn-home #main > .mn-organism{height:260px;margin-top:18px}
+}
+@media(max-width:750px){
+  body.mn-home #main > .mn-organism{height:255px}
+  body.mn-home #main > .mn-organism .mn-organism-heading{
+    top:17px;left:16px;right:16px;font-size:11px
+  }
+  body.mn-home #main > .mn-organism .mn-organism-footer{
+    bottom:14px;left:16px;right:16px;font-size:9px
+  }
+}
+
+/* Legacy decorative rotor duplicates the new live organism. Preserve the
+   real state text but remove the obsolete spinning toy on Home only. */
+body.mn-home .dashboard-unit{
+  min-height:54px;margin:0 0 25px;padding:12px 2px;
+  background:transparent;border:0;
+  border-bottom:1px solid #3c4143;border-left:0;box-shadow:none;
+  display:flex;gap:13px;align-items:center
+}
+body.mn-home .dashboard-unit::after,
+body.mn-home .dashboard-rotor{display:none}
+body.mn-home .dashboard-reading strong{
+  font:600 12px/1.4 'Segoe UI Variable','Segoe UI',sans-serif;
+  letter-spacing:.018em;color:#e2e0d9
+}
+body.mn-home .dashboard-reading span{
+  color:#9da6a4;font:11px/1.5 'Segoe UI Variable','Segoe UI',sans-serif
+}
+body.mn-home .quicklink{
+  background:#1b1e20;border:1px solid #393c3d;box-shadow:none
+}
+body.mn-home .quicklink:hover{
+  background:#25292a;transform:none;border-color:#716b5b
+}
+body.mn-home .quicklink::after{display:none}

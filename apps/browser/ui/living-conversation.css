@@ -1,0 +1,124 @@
+/*
+ * MNEMOS / Living Conversation
+ * React Bits FaultyTerminal (WebGL2) + GlitchText + FuzzyText, locally bundled.
+ * Visual simulation is intentionally separate from any claim to read a
+ * provider model's private reasoning. Only observable statuses are shown.
+ */
+.mn-presence{
+  --mn-presence-accent:#c4b28c;
+  position:relative;isolation:isolate;
+  width:calc(100% - 24px);height:244px;
+  margin:12px 12px 18px;
+  border:1px solid #414746;border-radius:6px;
+  background:#0a0e12;overflow:hidden;
+  color:#eee8d9;flex:none;
+  box-shadow:inset 0 0 0 1px #0c1116, 0 4px 24px #0003;
+  contain:layout paint;
+}
+.mn-presence[data-phase=error]{--mn-presence-accent:#ca8b7b}
+.mn-presence[data-phase=captured]{--mn-presence-accent:#c5ccb7}
+.mn-presence:before{
+  content:'';position:absolute;z-index:1;left:0;top:0;bottom:0;
+  width:2px;background:var(--mn-presence-accent);
+  opacity:.83;pointer-events:none;
+}
+.mn-presence-stage{position:absolute;inset:0;z-index:0}
+.mn-presence-stage:before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse at 56% 48%,#5d564b14 0%,transparent 65%),
+    linear-gradient(160deg,#141a20,#090d12 70%);
+  pointer-events:none
+}
+.mn-presence-faulty{
+  position:absolute;inset:0;width:100%;height:100%;
+  z-index:1;opacity:.0;
+  transition:opacity 550ms ease;
+  mask-image:linear-gradient(180deg,transparent 0%,#000 14%,#000 83%,transparent 100%);
+}
+.mn-presence[data-backend=react-webgl2] .mn-presence-faulty{opacity:.79}
+.mn-presence[data-backend=fallback] .mn-presence-faulty{display:none}
+.mn-presence-overlay{
+  position:absolute;inset:0;z-index:2;
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:12px 14px 11px;pointer-events:none;
+  background:linear-gradient(180deg,#0b1014bb 0%,#080d1170 24%,transparent 53%,#070b10cc 100%)
+}
+.mn-presence-overline,.mn-presence-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;font:9px/1.5 Consolas,'Cascadia Mono',monospace;
+  letter-spacing:.06em;text-transform:uppercase;color:#b2b8b4
+}
+.mn-presence-dot{font-size:10px;color:var(--mn-presence-accent)}
+.mn-presence-life{display:flex;flex-direction:column;
+  gap:5px;align-items:flex-start;margin-top:9px;
+  max-width:100%;min-height:65px;
+}
+.mn-presence .glitch,.mn-presence-plain{
+  margin:0;font-family:'Segoe UI Variable','Segoe UI',sans-serif;
+  font-size:clamp(1.2rem,2vw,1.9rem);
+  font-weight:650;letter-spacing:-.045em;line-height:1.1;
+  color:#e8dcc2;white-space:normal;
+  text-wrap:balance
+}
+.mn-presence .glitch__text{white-space:normal}
+.mn-presence .glitch__slice{white-space:normal}
+.mn-presence-sub{
+  font:500 10px/1.45 Consolas,'Cascadia Mono',monospace;
+  text-transform:uppercase;letter-spacing:.12em;color:#b0baa7
+}
+.mn-presence-reply{display:flex;flex-direction:column;gap:4px;
+  padding:9px 10px;border-left:1px solid #a89b7a9b;
+  background:#0b1012a6;overflow:hidden;max-height:91px;
+  animation:mn-presence-reveal .38s ease-out both;
+}
+.mn-presence-reply .glitch,.mn-presence-reply-glitch{
+  font:600 12px/1.45 'Segoe UI Variable','Segoe UI',sans-serif;
+  letter-spacing:-.015em;margin:0;white-space:normal;max-width:100%
+}
+.mn-presence-reply-head{font:9px/1.5 Consolas,monospace;
+  color:#bfae8e;letter-spacing:.07em}
+.mn-presence-reply p{
+  margin:0;font:11px/1.55 'Segoe UI Variable','Segoe UI',sans-serif;
+  color:#d8dcd6;overflow:hidden;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical
+}
+.mn-presence-muted{min-height:26px;display:flex;align-items:center;
+  color:#b0b6ab;font:10px/1.6 Consolas,monospace}
+.mn-presence-fuzzy{display:block;max-width:100%;max-height:26px}
+.mn-presence-foot{letter-spacing:0;color:#a3ada7;font-size:9px;gap:8px}
+.mn-presence-foot>span{overflow:hidden;text-overflow:ellipsis;min-width:0;white-space:nowrap}
+.mn-presence-foot>span:last-child{color:#777f7c;font-size:8px}
+body.mn-presence-visible #context>.mn-organism,
+body.mn-presence-visible.coordination-mode>.mn-organism{display:none!important}
+body.coordination-mode #main>.mn-presence{
+  width:min(100%,1120px);height:318px;
+  margin:16px auto 29px;padding:0;
+  border-top:1px solid #85755d
+}
+body.coordination-mode #main>.mn-presence .mn-presence-overlay{padding:21px 30px 20px}
+body.coordination-mode #main>.mn-presence .mn-presence-life{margin-left:6%;margin-top:32px}
+body.coordination-mode #main>.mn-presence .glitch{font-size:clamp(1.5rem,3.4vw,2.9rem)}
+body.coordination-mode #main>.mn-presence .mn-presence-reply{
+  max-width:min(660px,75%);margin-left:6%;max-height:88px
+}
+body.coordination-mode #main>.mn-presence .mn-presence-reply p{-webkit-line-clamp:2}
+@keyframes mn-presence-reveal{
+  from{opacity:0;transform:translateY(7px);filter:blur(3px)}
+  to{opacity:1;transform:translateY(0);filter:blur(0)}
+}
+@media(max-width:1250px){
+  .mn-presence{height:286px}
+  .mn-presence-overlay{padding:12px}
+  .mn-presence-foot>span:last-child{display:none}
+}
+@media(max-width:700px){
+  body.coordination-mode #main>.mn-presence{height:267px}
+  body.coordination-mode #main>.mn-presence .mn-presence-overlay{padding:15px}
+  body.coordination-mode #main>.mn-presence .mn-presence-life{margin:14px 0 0}
+  body.coordination-mode #main>.mn-presence .mn-presence-reply{max-width:100%;margin:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .mn-presence-faulty{transition:none}
+  .mn-presence-reply{animation:none}
+}

@@ -1,0 +1,334 @@
+/*
+ * MNEMOS / Quiet Surface 01
+ * A restrained editorial/industrial treatment of the existing Atomic Age
+ * browser, not a replacement application or a decorative dashboard.
+ * All overrides affect the privileged shell only; never user web pages.
+ */
+:root{
+  --mn-paper:#e7e6e1;
+  --mn-mid:#acb0ad;
+  --mn-low:#858b89;
+  --mn-graphite:#111315;
+  --mn-well:#181a1c;
+  --mn-fine:#2f3234;
+  --mn-signal:#cfb88e;
+  --mn-console:Consolas,'Cascadia Mono',monospace;
+}
+body:not(.core-workspace-mode){background:var(--mn-graphite);color:var(--mn-paper)}
+/* Tool chrome: no gradients, plastic highlights or decorative motion. */
+body:not(.core-workspace-mode) .chrome{
+  background:#181a1b;border-bottom:1px solid #333537;box-shadow:none
+}
+body:not(.core-workspace-mode) .brand{
+  border-color:#333537;letter-spacing:.075em;color:var(--mn-paper)
+}
+body:not(.core-workspace-mode) .brand-sub{color:#a09f99;letter-spacing:.08em}
+body:not(.core-workspace-mode) .tab{
+  background:#202224;border-color:#313437;color:#afb4b1;
+  border-radius:5px 5px 0 0
+}
+body:not(.core-workspace-mode) .tab.active{
+  background:#272a2c;border-color:#505253;border-bottom-color:#272a2c;color:#f3f0e8
+}
+body:not(.core-workspace-mode) .tab.active::after{background:var(--mn-signal);animation:none}
+body:not(.core-workspace-mode) .toolbar{background:#181a1b;border-color:#2b2e30}
+body:not(.core-workspace-mode) #address-form{
+  background:#101214;border-color:#35393b;border-radius:5px
+}
+body:not(.core-workspace-mode) #address-form:focus-within{border-color:#a79676}
+body:not(.core-workspace-mode) #address-icon{color:#c5b592}
+body:not(.core-workspace-mode) .sidebar{
+  background:#17191b;border-color:#2e3133
+}
+body:not(.core-workspace-mode) .sidebar .eyebrow{color:#aaa9a3}
+body:not(.core-workspace-mode) nav button{
+  border-radius:4px;color:#b9bcb9;transition:none
+}
+body:not(.core-workspace-mode) nav button.active{
+  color:#ede8dc;background:#242627;border-left:2px solid var(--mn-signal);
+  padding-left:9px
+}
+body:not(.core-workspace-mode) nav button.active span{color:var(--mn-signal)}
+body:not(.core-workspace-mode) nav button.active::before{animation:none;display:none}
+body:not(.core-workspace-mode) .project-link.active{
+  background:#242728;color:#ebe6d8
+}
+body:not(.core-workspace-mode) .sidebar-bottom{
+  border-color:#323537
+}
+body:not(.core-workspace-mode) .local-pill{
+  color:#c6b79a;border-color:#575044;background:transparent
+}
+body:not(.core-workspace-mode) .core-badge{
+  border-color:#48443d;color:#ddd0b8;border-radius:4px
+}
+body:not(.core-workspace-mode) .status-dot{background:#b4ad9a;box-shadow:none}
+body:not(.core-workspace-mode) .status-dot.offline{background:#b68669}
+body:not(.core-workspace-mode) .statusbar{
+  background:#17191b;border-color:#303335;color:#959b99
+}
+body:not(.core-workspace-mode) .primary{
+  background:#d4c7aa;border:1px solid #d4c7aa;color:#1b1c1b;
+  border-radius:4px;font-weight:650
+}
+body:not(.core-workspace-mode) .primary:hover:not(:disabled){
+  background:#ece1c9;color:#151719
+}
+body:not(.core-workspace-mode) .secondary{
+  background:transparent;border:1px solid #4b4e4f;color:#d3d6d3;
+  border-radius:4px;font-weight:530
+}
+body:not(.core-workspace-mode) .secondary:hover:not(:disabled){
+  background:#272a2b;border-color:#757978
+}
+body:not(.core-workspace-mode) .quicklink:hover{
+  transform:none
+}
+body:not(.core-workspace-mode) .assistant-orb{animation:none}
+body:not(.core-workspace-mode) .status-dot{animation:none}
+body:not(.core-workspace-mode) #main.motion-enter:not(.web) .page-header,
+body:not(.core-workspace-mode) #main.motion-enter:not(.web) .page-kicker,
+body:not(.core-workspace-mode) #main.motion-enter:not(.web) .quicklink{
+  animation:none
+}
+
+/* Collaboration is its own workspace: don't squeeze it beside a redundant
+ * 336px chat terminal. Other sections keep the context panel unchanged. */
+body.coordination-mode #main{
+  right:0;padding:37px clamp(26px,4vw,64px) 90px;
+  background:#111315;scrollbar-color:#484b4a transparent
+}
+body.coordination-mode .context{display:none}
+body.coordination-mode #main .page-kicker,
+body.coordination-mode #main .page-header,
+body.coordination-mode #main > .coordination-page{
+  width:min(100%,1150px);margin-left:auto;margin-right:auto
+}
+body.coordination-mode #main .page-header{margin-top:31px;margin-bottom:24px}
+body.coordination-mode #main .page-header::before{
+  background:var(--mn-signal);animation:none;width:28px
+}
+body.coordination-mode #main h1{
+  font-family:'Segoe UI Variable','Segoe UI',sans-serif;
+  font-size:30px;letter-spacing:-.04em;font-weight:650;
+  line-height:1.18;color:#f1efeb
+}
+body.coordination-mode #main .page-header p{
+  max-width:750px;color:#9fa5a3;font-size:12px
+}
+body.coordination-mode .coordination-page{
+  padding-bottom:100px;max-width:1150px
+}
+body.coordination-mode .coordination-page > p.subtitle{
+  color:#abb0ad;font-size:12px;line-height:1.65;
+  margin:0 0 25px;max-width:800px
+}
+body.coordination-mode .coordination-page > .section-divider{
+  border-color:#353839;margin:25px 0 21px;padding-top:20px
+}
+body.coordination-mode .coordination-page .section-title{
+  padding:0 0 12px;border-color:#3a3d3d;margin:0 0 10px
+}
+body.coordination-mode .coordination-page .section-title h2{
+  font:600 15px/1.45 'Segoe UI Variable','Segoe UI',sans-serif;color:#e7e5de;
+  letter-spacing:-.01em
+}
+body.coordination-mode .coordination-page .section-title .eyebrow{
+  color:#969995;font-size:10px;letter-spacing:.04em;font-weight:500;
+  font-family:var(--mn-console)
+}
+body.coordination-mode .coordination-page .count-label{
+  color:#a7a7a0;font-size:10px
+}
+
+/* Model selection: quiet surface, not three green dashboard widgets. */
+body.coordination-mode .coordination-options{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;margin:15px 0 12px
+}
+body.coordination-mode .coordination-option{
+  min-width:0;min-height:65px;display:flex;align-items:center;gap:13px;
+  background:#1a1c1e;border:1px solid #383b3c;border-radius:4px;
+  padding:12px 14px;color:#d9dad6;transition:none
+}
+body.coordination-mode .coordination-option:hover{
+  background:#202324;border-color:#626360
+}
+body.coordination-mode .coordination-option:has(input:checked){
+  background:#222422;border-color:#7d7564
+}
+body.coordination-mode .coordination-option input[type=checkbox]{
+  width:15px;height:15px;accent-color:#c6b593;flex:0 0 auto;
+  margin:0
+}
+body.coordination-mode .coordination-option strong{
+  color:#eeeae0;font-size:13px;font-weight:570;line-height:1.35
+}
+body.coordination-mode .coordination-option small{
+  font-size:11px;line-height:1.4;color:#a5aaa6;
+  margin:4px 0 0;overflow:hidden;text-overflow:ellipsis
+}
+body.coordination-mode .coordination-actions{gap:9px;margin:13px 0}
+body.coordination-mode .coordination-actions button{
+  min-height:34px;padding:8px 14px;font-size:12px;letter-spacing:0
+}
+body.coordination-mode .coordination-prompt{
+  width:100%;border-radius:4px;border:1px solid #424546;
+  background:#161819;color:#e4e4df;
+  font:12px/1.65 'Segoe UI Variable','Segoe UI',sans-serif;
+  padding:13px 15px;box-shadow:none
+}
+body.coordination-mode .coordination-prompt:focus{border-color:#a99a7b}
+
+/* The council is a typographic transcript, not nested glowing cards. */
+body.coordination-mode .coordination-page > .council-panel{
+  display:flex;flex-direction:column;align-items:stretch;
+  gap:15px;background:#181a1c;border:1px solid #3a3d3e;
+  border-top:2px solid #aea087;border-left:1px solid #3a3d3e;
+  border-radius:5px;box-shadow:none;
+  padding:22px clamp(16px,2.6vw,29px) 26px;
+  margin:27px 0 32px;width:100%;max-width:100%
+}
+body.coordination-mode .council-panel .section-title{
+  margin:0;padding:0 0 15px;border-color:#3a3c3e
+}
+body.coordination-mode .council-panel p.subtitle{
+  margin:0;color:#adb1ad;font-size:12px;max-width:82ch;line-height:1.6
+}
+body.coordination-mode .council-panel > .coordination-prompt{
+  min-height:67px;max-height:140px;margin:0
+}
+body.coordination-mode .council-panel .coordination-manager{
+  min-height:52px;border:0;border-top:1px solid #393c3d;
+  border-radius:0;background:transparent;padding:12px 0 0;
+  margin-top:0
+}
+body.coordination-mode .council-panel .coordination-manager:has(input:checked){
+  background:transparent;border-color:#4e4b41
+}
+body.coordination-mode .council-panel .coordination-manager:hover{
+  background:transparent
+}
+body.coordination-mode .council-panel > .coordination-actions{
+  margin:0;display:flex;gap:10px;flex-wrap:wrap
+}
+body.coordination-mode .council-panel .coordination-results{
+  display:flex;flex-direction:column;gap:0;margin:5px 0 0;
+  border-top:1px solid #343738
+}
+body.coordination-mode .council-turn{
+  display:grid;grid-template-columns:34px minmax(0,1fr);gap:13px;
+  padding:15px 0;border-bottom:1px solid #333637;min-width:0;
+  background:transparent
+}
+body.coordination-mode .council-turn:last-child{border-bottom:0}
+body.coordination-mode .council-turn-number{
+  font:500 12px/1.7 var(--mn-console);
+  color:#8f9492;padding:1px 0 0 2px
+}
+body.coordination-mode .council-turn-active .council-turn-number{
+  color:#d8be8c
+}
+body.coordination-mode .council-turn-body{min-width:0;overflow-wrap:anywhere}
+body.coordination-mode .council-turn-head{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px 13px;
+  min-height:25px
+}
+body.coordination-mode .council-turn-head .record-status{
+  flex:none;margin:0;padding:4px 9px;
+  color:#dad7cd;border:1px solid #505353;border-radius:3px;
+  background:#242628;font-size:10px;letter-spacing:.015em
+}
+body.coordination-mode .council-turn-head strong{
+  font-size:12px;font-weight:550;color:#e3e6e1
+}
+body.coordination-mode .council-turn-done{
+  margin-left:auto;font-size:13px;color:#b8b6a4
+}
+body.coordination-mode .council-turn-meta,
+body.coordination-mode .council-turn-url{
+  display:block;margin:5px 0 0;font:10px/1.55 var(--mn-console);
+  color:#a6aaa7;overflow-wrap:anywhere
+}
+body.coordination-mode .council-turn-url{color:#939fa2;user-select:text}
+body.coordination-mode .council-answer{
+  margin-top:9px;border-top:1px solid #303334;
+  padding:8px 0 0;min-width:0
+}
+body.coordination-mode .council-answer > summary{
+  color:#cfc3a8;cursor:pointer;list-style-position:inside;
+  font-size:11px;font-weight:570;line-height:1.8;
+  padding:2px 0
+}
+body.coordination-mode .council-answer > summary:hover{color:#eee2c8}
+body.coordination-mode .council-answer-content{
+  max-height:390px;overflow:auto;
+  background:transparent;border:0;
+  padding:12px 9px 6px 1px;color:#d5d8d3;
+  font:12px/1.8 'Segoe UI Variable','Segoe UI',sans-serif;
+  white-space:pre-wrap;overflow-wrap:anywhere;user-select:text
+}
+body.coordination-mode .council-turn .notice.gold{
+  background:transparent;border:0;border-left:2px solid #ab8f71;
+  color:#cabba3;border-radius:0;margin:10px 0 0;padding:4px 10px;
+  font-size:11px;line-height:1.5
+}
+/* The rest of the coordination workspace remains functional, but does not
+ * compete visually with the live conversation. */
+body.coordination-mode .coordination-page > .coordination-result,
+body.coordination-mode .coordination-snapshot{
+  background:#1c1e20;border:1px solid #36393a;border-radius:4px
+}
+body.coordination-mode .coordination-page .coordination-page-text{
+  background:transparent;color:#d3d5d0;border:0;
+  white-space:pre-wrap;overflow-wrap:anywhere;
+  font-family:inherit;font-size:12px;line-height:1.75
+}
+body.coordination-mode .coordination-page .notice.gold{
+  color:#c7b597;border-color:#746349;background:#24231f
+}
+body.coordination-mode .coordination-page .section-divider{
+  border-color:#343738
+}
+/* Advanced controls are a single disclosure, rather than a stack of cards
+ * competing with the main transcript. Keep all original DOM and handlers. */
+body.coordination-mode .coordination-advanced{
+  margin:22px 0 10px;padding:0 0 10px;
+  border-top:1px solid #343738;border-bottom:1px solid #343738
+}
+body.coordination-mode .coordination-advanced-title{
+  cursor:pointer;list-style-position:inside;
+  padding:17px 6px;line-height:1.5;
+  font-size:13px;font-weight:570;color:#cfc7b8
+}
+body.coordination-mode .coordination-advanced-title:hover{color:#f1e7d1}
+body.coordination-mode .coordination-advanced-body{
+  padding:6px 6px 30px
+}
+body.coordination-mode .coordination-advanced-body > .section-divider:first-child{
+  display:none
+}
+body.coordination-mode .coordination-advanced-body .coordination-options{
+  grid-template-columns:repeat(2,minmax(0,1fr))
+}
+body.coordination-mode .coordination-page .handoff-card:not(.council-panel){
+  background:#1c1e20;border:1px solid #36393a;border-radius:4px;
+  box-shadow:none
+}
+@media(max-width:1080px){
+  body.coordination-mode #main{padding:27px 22px 70px}
+  body.coordination-mode .coordination-options{
+    grid-template-columns:repeat(2,minmax(0,1fr))
+  }
+}
+@media(max-width:700px){
+  body.coordination-mode #main{padding:22px 16px 60px}
+  body.coordination-mode .coordination-options{grid-template-columns:1fr}
+  body.coordination-mode .coordination-page > .council-panel{padding:17px 15px}
+  body.coordination-mode .council-turn{
+    grid-template-columns:24px minmax(0,1fr);gap:8px
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body:not(.core-workspace-mode) *{scroll-behavior:auto}
+}

@@ -1,0 +1,41 @@
+node_modules/
+dist/
+artifacts/
+.profile/
+profiles/
+chromium/
+userData/
+Cache/
+Code Cache/
+GPUCache/
+Local Storage/
+Session Storage/
+IndexedDB/
+Network/
+Cookies*
+Login Data*
+Web Data*
+Local State
+Preferences
+Secure Preferences
+.env*
+!.env.example
+**/*.local.json
+**/config.local.*
+**/credential.json
+**/gemini-oauth.json
+security/
+data/
+logs/
+runtime/
+*.sqlite*
+*.db*
+*.jsonl
+*.log
+*.pem
+*.key
+*.pfx
+*.p12
+*.enc
+*.bak
+

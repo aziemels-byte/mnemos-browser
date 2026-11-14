@@ -1,0 +1,31 @@
+{
+  "name": "@mnemos/browser",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/main.mjs",
+  "description": "Isolated MNEMOS Chromium browser vertical slice",
+  "scripts": {
+    "start": "node scripts/start.mjs",
+    "test": "npm run test:gate",
+    "test:gate": "node --test --test-concurrency=1 test/provider-avatars.test.mjs test/council-conversation.test.mjs test/council-readonly-reconcile.test.mjs test/core-workspace-read-model.test.mjs test/core-orchestrator-client.test.mjs test/model-coordination.test.mjs test/quiet-surface-ui.test.mjs test/profile-policy.test.mjs",
+    "test:release": "npm run test:gate && npm run test:e2e && npm run test:bridge",
+    "test:e2e": "node scripts/e2e.mjs",
+    "test:bridge": "node scripts/bridge-e2e.mjs",
+    "package:portable": "node scripts/package.mjs",
+    "test:platform:memory": "node scripts/platform-memory-e2e.mjs",
+    "verify:portable": "node --test scripts/verify-portable-integrity.mjs"
+  },
+  "devDependencies": {
+    "electron": "45.2.3",
+    "playwright-core": "1.65.0"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/node": "2.1.2",
+    "@modelcontextprotocol/server": "2.4.0",
+    "zod": "4.6.7"
+  }
+}
