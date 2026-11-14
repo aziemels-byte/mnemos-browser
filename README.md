@@ -1,6 +1,6 @@
 # MNEMOS Browser
 
-Privāta MNEMOS Browser 0.1.0 pirmkoda kopija. Tajā ir Electron lietotne, Chromium darba telpas un profilu izolācija, Atomic Age saskarne, Council, Ollama integrācija, Frontier Bus, Perplexity un Gemini savienotāji un to testi.
+MNEMOS Browser 0.1.0 pirmkods ir pieejams ar [MIT licenci](LICENSE). Tajā ir Electron lietotne, Chromium darba telpas un profilu izolācija, Atomic Age saskarne, Council, Ollama integrācija, Frontier Bus, Perplexity un Gemini savienotāji un to testi.
 
 ## Izstrāde un Windows pakotne
 

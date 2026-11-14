@@ -197,7 +197,7 @@ const localCouncilManager=new LocalCouncilManager({
   timeoutMs:18000
 });
 const assetTypes={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml'};
-const assets=new Set(['index.html','shell.css','pipboy.css','core-workspace.css','core-workspace-ui.js','shell.js','robot-persona.css','robot-persona.js','provider-avatars.css','provider-avatars.js','quiet-surface.css','reactbits.css','reactbits-animated-list.js','living-network.css','living-network.js','reactbits-webthreads.css','reactbits-webthreads.js','reactbits-faulty-terminal.js','reactbits-glitch-text.js','reactbits-fuzzy-text.js','reactbits-faulty-terminal.css','reactbits-glitch-text.css','living-conversation.css','living-conversation.js','vendor/react.production.min.js','vendor/react-dom.production.min.js','logo.svg']);
+const assets=new Set(['index.html','shell.css','pipboy.css','core-workspace.css','core-workspace-ui.js','shell.js','robot-persona.css','robot-persona.js','provider-avatars.css','provider-avatars.js','quiet-surface.css','logo.svg']);
 function currentTab(){return tabs.get(activeId);}
 function state(){return {version:'0.1.0',testMode,activeId,activeProject,section,error:lastError,
   mcpEndpoint:configuredMcpEndpoint(),

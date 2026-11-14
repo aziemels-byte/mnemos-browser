@@ -191,11 +191,9 @@ function coordinationPage(){
   if(!eligible.length)panel.append(empty('Nav AI cilņu',
     'Atver ChatGPT, Gemini vai Perplexity šī projekta pārlūka profilā.'));
   const targetList=element('div','coordination-options');
-  const nativeModelToggles=new Map();
   for(const t of eligible){
     const origin=new URL(t.url),model=hostNames.get(origin.hostname);
     const line=element('label','coordination-option'),toggle=element('input');
-    nativeModelToggles.set(t.id,toggle);
     toggle.type='checkbox';toggle.checked=coordinationTabIds.has(t.id);
     toggle.addEventListener('change',()=>{
       if(toggle.checked){
@@ -211,34 +209,6 @@ function coordinationPage(){
     targetList.append(line);
   }
   panel.append(targetList);
-  // React Bits renders the visible roster, while the native checkboxes retain
-  // all existing validation and provide a no-JavaScript-render fallback.
-  const rosterHost=element('div','reactbits-roster-host');
-  panel.insertBefore(rosterHost,targetList);
-  const rosterRows=eligible.map(t=>({
-    id:t.id,
-    model:hostNames.get(new URL(t.url).hostname),
-    title:String(t.title??'').slice(0,130),
-    selected:coordinationTabIds.has(t.id)
-  }));
-  queueMicrotask(()=>{
-    if(!rosterHost.isConnected)return;
-    const mount=window.MNEMOSReactBits?.mountRoster;
-    if(typeof mount!=='function'){rosterHost.remove();return;}
-    const ok=mount(rosterHost,rosterRows,{
-      onToggle(id,desired){
-        const native=nativeModelToggles.get(id);
-        if(!native)return false;
-        native.checked=desired;
-        native.dispatchEvent(new Event('change',{bubbles:true}));
-        return native.checked;
-      },
-      onReady(){
-        if(rosterHost.isConnected)targetList.hidden=true;
-      }
-    });
-    if(!ok)rosterHost.remove();
-  });
   const selectModels=button('Atlasīt pieejamos AI modeļus','secondary',()=>{
     coordinationTabIds.clear();
     const used=new Set();
@@ -401,25 +371,6 @@ function coordinationPage(){
     }
     messages.append(nativeMessages);
     councilCard.append(messages);
-    // React Bits is an optional, read-only island. The existing tested DOM
-    // transcript stays available if React fails, loads late or is disabled.
-    // Wait until the host is attached: React 18 createRoot must not race
-    // a detached element during the shell's synchronous page rebuild.
-    queueMicrotask(()=>{
-      if(!messages.isConnected)return;
-      const mount=window.MNEMOSReactBits?.mountCouncil;
-      if(typeof mount!=='function')return;
-      const island=element('div','reactbits-island');
-      messages.prepend(island);
-      let mounted=false;
-      try{
-        mounted=mount(island,council,{statusLabel,errorLabel})===true;
-      }catch(error){
-        console.error('React Bits council unavailable:',String(error?.message||error));
-      }
-      if(mounted)nativeMessages.hidden=true;
-      else island.remove();
-    });
   }
   panel.append(councilCard,element('div','section-divider'));
 

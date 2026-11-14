@@ -14,6 +14,7 @@ await fs.mkdir(target);
 await fs.cp(path.dirname(electronPath),target,{recursive:true});
 const executable=path.join(target,'MNEMOS Browser.exe');
 await fs.rename(path.join(target,'electron.exe'),executable);
+await fs.copyFile(path.join(repo,'LICENSE'),path.join(target,'LICENSE'));
 const appDir=path.join(target,'resources','app');
 await fs.mkdir(path.join(appDir,'apps','browser'),{recursive:true});
 for(const dir of ['src','ui'])await fs.cp(path.join(root,dir),path.join(appDir,'apps','browser',dir),{recursive:true});
